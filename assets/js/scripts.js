@@ -1,12 +1,15 @@
 var getWeatherRepo = function(cityName) {
     // TODO: fetching weather data from open weather api 
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ cityName + "&appid=915a0c004b1a5a39724d40f7412169b9"
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ cityName + "&units=imperial&appid=915a0c004b1a5a39724d40f7412169b9"
 
     // request the url 
         fetch(apiUrl).then(function(response) {
             // request successful
             if (response.ok) {
-                console.log(response.json());
+                //console.log(response.json())
+                response.json().then(function(object) {
+                    displayWeatherRepo(object, cityName);
+                });
             }else{
                 alert("Error: City location not found.");
             }
@@ -15,6 +18,43 @@ var getWeatherRepo = function(cityName) {
             alert("Unable to Connect to Server");
         });
 };
+
+// display repo current and future weather condition
+var displayWeatherRepo = function(weatherData, city) {
+    // getting the current date
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = mm + '/' + dd + '/' + yyyy;
+
+    // var all the needed parameter of the weather
+    var temp = weatherData.main.temp;
+    var wind = weatherData.wind.speed;
+    var humid = weatherData.main.humidity;
+    var feelLike = weatherData.main.feels_like; 
+    //var icn = weatherData.weather.icon;
+
+    var titleEl = document.createElement("h3");
+    titleEl.textContent = city + " (" + today + ") ";
+
+    var tempEl = document.createElement("p");
+    tempEl.textContent = "Temp: " + temp + " F";
+    var windEl = document.createElement("p");
+    windEl.textContent = "Wind: " + wind + " MPH";
+    var humidEl = document.createElement("p");
+    humidEl.textContent = "Humidity: " + humid + " %";
+    var feelLikeEl = document.createElement("p");
+    feelLikeEl.textContent = "Feels Like: " + feelLike + " F";
+
+    currentWeatherEl.appendChild(titleEl);
+    currentWeatherEl.appendChild(tempEl);
+    currentWeatherEl.appendChild(windEl);
+    currentWeatherEl.appendChild(humidEl);
+    currentWeatherEl.appendChild(feelLikeEl);
+
+} 
+
 
 // handling the "submit"
 var formSubmitHandler = function(weather) {
@@ -36,4 +76,4 @@ var formSubmitHandler = function(weather) {
 var cityFormEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#city-input");
 cityFormEl.addEventListener("submit", formSubmitHandler);
-
+var currentWeatherEl = document.querySelector("#current-weather");
