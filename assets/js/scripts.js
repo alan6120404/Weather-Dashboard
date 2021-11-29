@@ -21,6 +21,10 @@ var getWeatherRepo = function(cityName) {
 
 // display repo current and future weather condition
 var displayWeatherRepo = function(weatherData, city) {
+
+    // make sure the interior is empty
+    currentWeatherEl.innerHTML = "";
+
     // getting the current date
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -35,6 +39,14 @@ var displayWeatherRepo = function(weatherData, city) {
     var feelLike = weatherData.main.feels_like; 
     //var icn = weatherData.weather.icon;
 
+    // capitalizing the city name
+    arr = city.split(" ");
+    for (var i = 0; i < arr.length; i++) {
+        arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+    }
+    city = arr.join(" ");
+
+    // create elements of the div
     var titleEl = document.createElement("h3");
     titleEl.textContent = city + " (" + today + ") ";
 
@@ -62,7 +74,6 @@ var formSubmitHandler = function(weather) {
 
     // get value from input element
     var cityName = cityInputEl.value.trim();
-
     if (cityName) {
         getWeatherRepo(cityName);
         cityInputEl.value = "";
