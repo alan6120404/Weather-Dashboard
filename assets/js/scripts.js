@@ -1,6 +1,6 @@
 var getWeatherInfo = function(cityName) {
     // TODO: fetching weather data from open weather api 
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ cityName + "&units=imperial&appid=915a0c004b1a5a39724d40f7412169b9"
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ cityName + "&units=imperial&appid=5a63dc799f994a93dea00f32b3d2e259"
 
     // request the url 
         fetch(apiUrl).then(function(response) {
@@ -73,7 +73,7 @@ var displayWeatherInfo = function(weatherData, city) {
 var getForecastInfo = function(weatherData) {
     var long = weatherData.coord.lon;
     var lat = weatherData.coord.lat;
-    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&units=imperial&exclude=current,minutely,hourly,alerts&appid=915a0c004b1a5a39724d40f7412169b9"
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&units=imperial&exclude=current,minutely,hourly,alerts&appid=5a63dc799f994a93dea00f32b3d2e259"
     // fetching information
     fetch(apiUrl).then(function(response) {
         // request successful
@@ -139,6 +139,17 @@ var displayForecastInfo = function(weatherData) {
     }
 };
 
+// adding search history to the left 
+var searchHistoryKeep = function(city) {
+    // creating a button that will contain the city name and submit function to go back to the getWeatherInfo
+    var searchButtonEl = document.createElement("button");
+    searchButtonEl.classList = "btn btn-secondary m-2";
+    searchButtonEl.textContent = city;
+    searchBtnCtnrEl.appendChild(searchButtonEl);
+
+    searchBtnCtnrEl.addEventListener("click", getWeatherInfo(city));
+};
+
 // handling the "submit"
 var formSubmitHandler = function(weather) {
     weather.preventDefault();
@@ -160,3 +171,4 @@ var cityInputEl = document.querySelector("#city-input");
 cityFormEl.addEventListener("submit", formSubmitHandler);
 var currentWeatherEl = document.querySelector("#current-weather");
 var futureWeatherEl = document.querySelector("#future-weather");
+var searchBtnCtnrEl = document.querySelector("#search-container");

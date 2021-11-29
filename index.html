@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- add the style sheet here -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom bg-primary bg-gradient">
+        <h1 class="title text-white">Weather Dashboard</h1>
+    </header>
+    <main class="d-flex flex-row justify-space-between container">
+        <div class="col-12 col-md-4">
+            <div class="search-form d-flex flex-column border-bottom border-4">
+                <h3 class="card-header bg-secondary bg-gradient text-white">Search for a City:</h3>
+                <form id="city-form" class="card-body">
+                    <input name="city" id="city-input" type="text" autofocus="true" placeholder="San Diego" class="form-control m-2 mx-auto" />
+                    <button type="submit" class="btn btn-primary px-auto col-12">Search</button>
+                </form>
+            </div>
+            <div class="d-flex flex-column gap-auto" id="search-container"></div>
+        </div>
+        <div class="col-12 col-md-8">
+            <div class="border border-white border-3 rounded rounded-3 text-white bg-success px-2" id="current-weather"></div>
+            <div class="city-future" id="future-weather"></div>
+        </div>
+    </main>
+    
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="./assets/js/scripts.js"></script>
+</body>
+</html>
