@@ -1,4 +1,4 @@
-var getWeatherRepo = function(cityName) {
+var getWeatherInfo = function(cityName) {
     // TODO: fetching weather data from open weather api 
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ cityName + "&units=imperial&appid=915a0c004b1a5a39724d40f7412169b9"
 
@@ -8,7 +8,7 @@ var getWeatherRepo = function(cityName) {
             if (response.ok) {
                 //console.log(response.json())
                 response.json().then(function(object) {
-                    displayWeatherRepo(object, cityName);
+                    displayWeatherInfo(object, cityName);
                 });
             }else{
                 alert("Error: City location not found.");
@@ -20,7 +20,7 @@ var getWeatherRepo = function(cityName) {
 };
 
 // display repo current and future weather condition
-var displayWeatherRepo = function(weatherData, city) {
+var displayWeatherInfo = function(weatherData, city) {
 
     // make sure the interior is empty
     currentWeatherEl.innerHTML = "";
@@ -65,7 +65,31 @@ var displayWeatherRepo = function(weatherData, city) {
     currentWeatherEl.appendChild(humidEl);
     currentWeatherEl.appendChild(feelLikeEl);
 
+    displayForecastInfo(weatherData);
 } 
+
+// creating a list of forecast
+
+var displayForecastInfo = function(weatherData) {
+    var long = weatherData.coord.lon;
+    var lat = weatherData.coord.lat;
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&exclude=current,minutely,hourly,alerts&appid=915a0c004b1a5a39724d40f7412169b9"
+    // fetching information
+    fetch(apiUrl).then(function(response) {
+        // request successful
+        if (response.ok) {
+            console.log(response.json())
+            /*response.json().then(function(object) {
+                displayWeatherInfo(object, cityName);
+            });*/
+        }else{
+            alert("Error: City location not found.");
+        }
+    })
+    .catch(function(error) {
+        alert("Unable to Connect to Server");
+    });
+};
 
 
 // handling the "submit"
@@ -75,7 +99,7 @@ var formSubmitHandler = function(weather) {
     // get value from input element
     var cityName = cityInputEl.value.trim();
     if (cityName) {
-        getWeatherRepo(cityName);
+        getWeatherInfo(cityName);
         cityInputEl.value = "";
     } else {
         alert("No such city exist.");
